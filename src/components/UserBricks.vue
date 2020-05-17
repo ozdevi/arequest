@@ -17,11 +17,16 @@ export default {
       </li>
       <li>
         <input type="checkbox" id="1st" checked aria-checked="true" title="2nd brick by @gulp">
-        <label>Here is my brick! Turn those goddamn bullets into checkboxes. &mdash; <a href="https://news.ycombinator.com/user?id=gulp">@gulp</a></label>
+        <label>"Here is my brick! Turn those goddamn bullets into checkboxes." &mdash; <a href="https://news.ycombinator.com/user?id=gulp">@gulp</a></label>
       </li>
       <li>
         <input type="checkbox" id="1st" disabled title="2nd brick by @gulp">
-        <label>Seriously need a stockpile (form/database) to save the bricks! &mdash; me</label>
+        <label>
+          <span>Seriously need a stockpile (form/database) to save the bricks! &mdash; me</span>
+          <span>"Maybe you can start it building a small brick offers collection form instead of emails?" &mdash;
+            <a href="https://www.producthunt.com/@ozhanatali">@ozhanatali</a>
+          </span>
+        </label>
       </li>
     </ul>
   </div>
@@ -33,8 +38,20 @@ ul {
     list-style: none;
 }
 
+li input{
+  vertical-align: top;
+}
+
 ul li input:not(:disabled):checked + label {
     text-decoration: line-through;
     color: #BBB; /* Brick Brick Brick */
+}
+
+label {
+  display: inline-block;
+}
+
+label span {
+  display: block;
 }
 </style>

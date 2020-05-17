@@ -33,9 +33,9 @@ export default {
     <br>
     <a href="/" title="by @everyone">Latest</a> •
     History:
-    <a href="/bricks/base.html" title="by @ozdevi">Base</a> •
-    <a href="/bricks/1st.html" title="by @ozdevi">1st Brick</a> •
-    <a href="/bricks/2nd.html" title="by @gulp">2nd Brick</a>
+    <a href="./bricks/base.html" title="by @ozdevi">Base</a> •
+    <a href="./bricks/1st.html" title="by @ozdevi">1st Brick</a> •
+    <a href="./bricks/2nd.html" title="by @gulp">2nd Brick</a>
     <br/>
     <br/>
     <small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small>
