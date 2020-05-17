@@ -104,7 +104,6 @@ dist
 .tern-port
 
 .DS_Store
-/dist
 
 # local env files
 .env.local
