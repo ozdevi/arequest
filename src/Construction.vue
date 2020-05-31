@@ -2,6 +2,7 @@
 import Brick from './Brick.vue';
 import BrickForm from './bricks/BrickForm.vue';
 import TodayLucyNumber from './bricks/TodayLucyNumber.vue';
+import Stockpile from './bricks/Stockpile.vue';
 
 export default {
   name: 'App',
@@ -9,6 +10,7 @@ export default {
     Brick,
     BrickForm,
     TodayLucyNumber,
+    Stockpile,
   },
   created() {
     this.$operatorMachine.send({ type: 'START' });
@@ -53,28 +55,18 @@ export default {
   <div id="app" :class="brickStyler">
     <h1>Hello, user!</h1>
       <p>
-        This website will be built on top of your requests.
-        Each request is a brick and we can start a construction with them. So this is really under construction. Go bring a brick!
+        <brick name="introductory-text">
+          <template v-slot:old>
+            This website will be built on top of your requests.
+            Each request is a brick and we can start a construction with them. So this is really under construction. Go bring a brick!
+          </template>
+          This website will be entirely built on top of your requests.
+          Each request is a brick and construction is on going, forever. So this is really, always, under construction.  Go add a brick!
+        </brick>
       </p>
       <h2>Where can I put my bricks?</h2>
       <brick-form/>
-      <h3>Todo:</h3>
-      <ul>
-        <li :title="`Brick #${brick.order} by @${brick.owner.name} on ${brick.ctime.toDate()}`" v-for="brick in stockpile" :key="brick.order">
-          <brick name="sweet-checkboxes">
-            <brick name="readonly-checkboxes">
-              <template v-slot:old>
-                <input type="checkbox" :checked="brick.isDone" :aria-checked="brick.isDone">
-              </template>
-              <input type="checkbox" disabled :checked="brick.isDone" :aria-checked="brick.isDone">
-            </brick>
-          </brick>
-          <label :class="{isDone: brick.isDone}" :id="`brick-${brick.order}`">
-            {{brick.instruction}} &mdash; <a :href="brick.owner.profile">{{brick.owner.name}}</a>
-          </label>
-          <em v-if="brick.name === 'todays-luck-number'"><today-lucy-number/></em>
-        </li>
-      </ul>
+      <stockpile />
       <footer>
         <div>
           <brick name="under-construction-gif">
@@ -89,6 +81,7 @@ export default {
         <br>
         <br>
         <div>
+          <div><today-lucy-number/></div>
           <brick name="under-construction-gif">
             <small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small>
           </brick>
@@ -97,7 +90,7 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .base {
   .isDone {
     text-decoration: line-through;
@@ -118,5 +111,13 @@ export default {
   p {
     max-width: 32em;
   }
+}
+.wide-enough-paragraphs {
+  p {
+    max-width: 38em;
+  }
+}
+.oxygen-mono-font {
+  font-family: 'Oxygen Mono', monospace;
 }
 </style>

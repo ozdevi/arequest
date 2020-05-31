@@ -17,5 +17,5 @@ export default {
 </script>
 
 <template>
-  <brick name="todays-luck-number"> Today's random number is {{randomNumber}}</brick>
+  <brick name="todays-luck-number"><em>Today's random number is {{randomNumber}}</em></brick>
 </template>

@@ -5,19 +5,23 @@ export default {
     name: String,
     action: String,
     related: Array,
+    tag: {
+      type: String,
+      default: 'span',
+    },
   },
   computed: {
     brick() {
       const operatorContext = this.$operatorMachine.context;
       const { builders } = operatorContext;
       const brick = builders[this.name];
-      return brick && brick.isDone;
+      return brick && (brick.isDone || brick.isDeveloping);
     },
   },
 };
 </script>
 
 <template>
-  <span v-if="brick"><slot></slot></span>
-  <span v-else><slot name="old"></slot></span>
+  <component :is="tag" v-if="brick"><slot></slot></component>
+  <component :is="tag" v-else><slot name="old"></slot></component>
 </template>
