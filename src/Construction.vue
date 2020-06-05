@@ -1,7 +1,6 @@
 <script>
 import Brick from './Brick.vue';
 import BrickForm from './bricks/BrickForm.vue';
-import TodayLucyNumber from './bricks/TodayLucyNumber.vue';
 import Stockpile from './bricks/Stockpile.vue';
 
 export default {
@@ -9,15 +8,29 @@ export default {
   components: {
     Brick,
     BrickForm,
-    TodayLucyNumber,
     Stockpile,
   },
+  data() { return { $loader: {} }; },
   created() {
     this.$operatorMachine.send({ type: 'START' });
+    this.$loader = this.$loading.show();
+  },
+  updated() {
+    if (this.storage && this.storage.hasCalled) {
+      this.$loader.hide();
+    }
+    if (this.storage) {
+      console.log('updated', this.brickStyler);
+      document.body.className = '';
+      document.body.classList.add(...this.brickStyler);
+    }
   },
   computed: {
     stockpile() {
       return this.$operatorMachine.context.stockpile;
+    },
+    storage() {
+      return this.$operatorMachine.context.storage;
     },
     history() {
       return this.$operatorMachine.context.history;
@@ -26,6 +39,18 @@ export default {
       return this.$operatorMachine.context.builders;
     },
     brickStyler() {
+      if (this.builders['andy-mvp-css']) {
+        const file = document.createElement('link');
+        file.rel = 'stylesheet';
+        file.href = 'mvp.css';
+        file.id = 'mvp';
+        document.head.appendChild(file);
+      } else {
+        const file = document.querySelector('link[id="mvp"]');
+        if (file) {
+          file.disabled = true;
+        }
+      }
       return Object.keys(this.builders);
     },
   },
@@ -52,51 +77,67 @@ export default {
 </script>
 
 <template>
-  <div id="app" :class="brickStyler">
-    <h1>Hello, user!</h1>
-      <p>
-        <brick name="introductory-text">
-          <template v-slot:old>
-            This website will be built on top of your requests.
-            Each request is a brick and we can start a construction with them. So this is really under construction. Go bring a brick!
-          </template>
-          This website will be entirely built on top of your requests.
-          Each request is a brick and construction is on going, forever. So this is really, always, under construction.  Go add a brick!
+  <main id="app">
+    <h1>
+      <brick name="user-bricks-logo">
+        <img src="./assets/user-bricks-logo.png" alt="" width="100" style="vertical-align: middle;"/>
+      </brick>
+      Hello, user!
+    </h1>
+    <p>
+      <brick name="introductory-text">
+        <template v-slot:old>
+          This website will be built on top of your requests.
+          Each request is a brick and we can start a construction with them. So this is really under construction. Go bring a brick!
+        </template>
+        This website will be entirely built on top of your requests.
+        Each request is a brick and construction is on going, forever. So this is really, always, under construction.  Go add a brick!
+      </brick>
+    </p>
+    <h2>Where can I put my bricks?</h2>
+    <brick-form/>
+    <stockpile />
+    <footer>
+      <div>
+        <brick name="under-construction-gif">
+          <img src="./assets/under-construction.gif" alt="A pictogram worker is digging the ground." title="Brick #1 by @ozdevi on 2020-05-14" />
         </brick>
-      </p>
-      <h2>Where can I put my bricks?</h2>
-      <brick-form/>
-      <stockpile />
-      <footer>
-        <div>
-          <brick name="under-construction-gif">
-            <img src="./assets/under-construction.gif" alt="A pictogram worker is digging the ground." title="Brick #1 by @ozdevi on 2020-05-14" />
-          </brick>
-        </div>
-        History:
-        <select name="history" @change="showHistory($event)">
-          <option value="LATEST" selected>Latest</option>
-          <option v-for="(value,key, hindex) in history" :key="key" :value="value.id">#{{hindex}} {{value.note}}</option>
-        </select>
-        <br>
-        <br>
-        <div>
-          <div><today-lucy-number/></div>
-          <brick name="under-construction-gif">
-            <small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small>
-          </brick>
-        </div>
-      </footer>
-  </div>
+      </div>
+      History:
+      <select name="history" @change="showHistory($event)">
+        <option value="LATEST" selected>Latest</option>
+        <option v-for="(value,key, hindex) in history" :key="key" :value="value.id">#{{hindex}} {{value.note}}</option>
+      </select>
+      <div>
+        <brick name="under-construction-gif">
+          <small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small>
+        </brick>
+      </div>
+    </footer>
+  </main>
 </template>
 
 <style lang="scss">
+.yellow-bg{
+    background: #F9D206;
+}
 .base {
   .isDone {
-    text-decoration: line-through;
-    color: #BBB; /* Brick Brick Brick */
+    .instruction{
+      color: #BBB; /* Brick Brick Brick */
+    }
   }
 }
+
+.yellow-bg {
+  .isDone {
+    .instruction{
+      color: inherit;
+      opacity: .3;
+    }
+  }
+}
+
 .sweet-checkboxes {
   ul {
     list-style: none;
@@ -108,12 +149,12 @@ export default {
 
 }
 .paragraph-length {
-  p {
+  p, .container {
     max-width: 32em;
   }
 }
 .wide-enough-paragraphs {
-  p {
+  p, .container {
     max-width: 38em;
   }
 }

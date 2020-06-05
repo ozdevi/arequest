@@ -1,11 +1,20 @@
 import Vue from 'vue';
 import { VueStateMachine } from 'vue-xstate-plugin';
+import Loading from 'vue-loading-overlay';
 import operatorMachine from '@/fsm/operatorMachine';
 import Construction from './Construction.vue';
 import store from './store';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 Vue.config.productionTip = false;
 
+Vue.use(Loading, {
+  width: 32,
+  height: 32,
+  opacity: 1,
+  backgroundColor: '#FFF',
+  loader: 'dots',
+});
 Vue.use(VueStateMachine, [
   {
     config: operatorMachine,

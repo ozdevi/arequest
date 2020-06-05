@@ -17,5 +17,18 @@ export default {
 </script>
 
 <template>
-  <brick name="todays-luck-number"><em>Today's random number is {{randomNumber}}</em></brick>
+  <brick name="todays-lucky-number">
+    <mark class="today-lucky-number">
+      <strong>
+        <em>Today's random number is {{randomNumber}}</em>
+      </strong>
+    </mark>
+  </brick>
 </template>
+
+<style scoped lang="scss">
+.today-lucky-number em{
+  text-decoration: none!important;
+  white-space: normal;
+}
+</style>

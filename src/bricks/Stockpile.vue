@@ -1,9 +1,10 @@
 <script>
 import Brick from '@/Brick.vue';
+import TodayLucyNumber from './TodayLucyNumber.vue';
 
 export default {
   name: 'Stockpile',
-  components: { Brick },
+  components: { Brick, TodayLucyNumber },
   computed: {
     stockpile() {
       return this.$operatorMachine.context.stockpile;
@@ -34,33 +35,36 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <h3>Todo (stockpile):</h3>
-    <p>
-      <ul class="stockpile">
-        <li
-          :title="`Brick #${brick.order} by @${brick.owner.name} on ${brick.ctime.toDate()}`"
-          v-for="brick in stockpile"
-          :key="brick.id"
-          :class="{expanded: expanded.includes(brick.id), isDone: brick.isDone}"
-        >
-          <span>
-            <brick name="sweet-checkboxes">
-              <brick name="readonly-checkboxes">
-                <template v-slot:old>
-                  <input type="checkbox" :checked="brick.isDone" :aria-checked="brick.isDone">
-                </template>
-                <input type="checkbox" disabled :checked="brick.isDone" :aria-checked="brick.isDone">
-              </brick>
+    <ul class="stockpile">
+      <li
+        :title="`Brick #${brick.order} by @${brick.owner.name} on ${brick.ctime.toDate()}`"
+        v-for="brick in stockpile"
+        :key="brick.id"
+        :class="{expanded: expanded.includes(brick.id), isDone: brick.isDone}"
+      >
+        <span>
+          <brick name="sweet-checkboxes">
+            <brick name="readonly-checkboxes">
+              <template v-slot:old>
+                <input type="checkbox" :checked="brick.isDone" :aria-checked="brick.isDone">
+              </template>
+              <input type="checkbox" disabled :checked="brick.isDone" :aria-checked="brick.isDone">
             </brick>
-          </span>
-          <span :class="{instruction: true}" :id="`brick-${brick.order}`" @mouseup="expand(brick.id)">
-           <span>{{brick.instruction}}</span>
-          </span>
-          <span class="brick-owner">&mdash; <a :href="brick.owner.profile">{{brick.owner.name}}</a></span>
-        </li>
-      </ul>
-    </p>
+          </brick>
+        </span>
+        <span :class="{instruction: true}" :id="`brick-${brick.order}`" @mouseup="expand(brick.id)">
+          <span :class="{'instruction-label':true, quote: brick.owner!=='me'}">{{brick.instruction}}</span>
+          <div v-if="brick.order && brick.order === 8"><today-lucy-number/></div>
+        </span>
+        <span class="brick-owner">&mdash;
+          <component :is="brick.owner.profile ? 'a' : 'span'" :href="brick.owner.profile ? brick.owner.profile : null">
+            {{brick.owner.name}}
+          </component>
+        </span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -83,6 +87,17 @@ export default {
         overflow: hidden;
         white-space: nowrap;
       }
+      &.isDone .instruction-label {
+        text-decoration: line-through;
+        &.quote{
+          &:before {
+            content: "“";
+          }
+          &:after {
+            content: "”";
+          }
+        }
+      }
       .brick-owner {
         flex: 1 0 auto;
       }
@@ -90,6 +105,20 @@ export default {
     li {
       .brick-owner {
         margin-left: 8px;
+        span {
+          padding: 0 8px;
+        }
+      }
+      .instruction-label {
+        &.quote {
+          &:before {
+            content: "“";
+          }
+
+          &:after {
+            content: "”";
+          }
+        }
       }
     }
   }
