@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <brick name="jerry-built-stockpile" :is="`div`">
+  <brick name="jerry-built-stockpile" tag="div">
     <template v-slot:old>
       <p>
         Good question.

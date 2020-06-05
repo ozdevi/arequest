@@ -1,28 +1,47 @@
 <script>
-import MersenneTwister from '@dsibilly/mersenne-twister';
+import WebFontLoader from 'webfontloader';
 import Brick from '@/Brick.vue';
-import format from 'date-fns/format';
-
-const rng = new MersenneTwister(format(new Date(), 'dMyyyy'));
+import fonts from '@/store/fonts.json';
 
 export default {
-  name: 'todays-lucy-number',
+  name: 'font-loader',
   data() {
-    return { randomNumber: rng.randomInt() };
+    return {
+      fonts,
+      selectedFont: undefined,
+    };
   },
   components: {
     Brick,
+  },
+  methods: {
+    changeFont($event) {
+      const { value: font } = $event.target;
+      this.selectedFont = font;
+      // eslint-disable-next-line no-undef
+      WebFontLoader.load({
+        google: {
+          families: [font],
+        },
+        active: this.fontLoaded,
+      });
+    },
+    fontLoaded() {
+      document.body.style = `font-family: ${this.selectedFont}`;
+    },
   },
 };
 </script>
 
 <template>
-  <brick name="todays-lucky-number">
-    <mark class="today-lucky-number">
-      <strong>
-        <em>Today's random number is {{randomNumber}}</em>
-      </strong>
-    </mark>
+  <brick name="font-loader" tag="div">
+    Font chooser:
+    <select @change="changeFont($event)">
+      <option value="" selected>Choose a font.</option>
+      <optgroup  v-for="(families, key) of fonts" :label="key.toUpperCase()" v-bind:key="key">
+        <option v-for="font in families" v-bind:key="font">{{font}}</option>
+      </optgroup>
+    </select>
   </brick>
 </template>
 

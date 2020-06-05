@@ -2,6 +2,8 @@
 import Brick from './Brick.vue';
 import BrickForm from './bricks/BrickForm.vue';
 import Stockpile from './bricks/Stockpile.vue';
+import FontLoader from './bricks/FontLoader.vue';
+import BuyMeBrick from './bricks/BuyMeBrick.vue';
 
 export default {
   name: 'App',
@@ -9,6 +11,8 @@ export default {
     Brick,
     BrickForm,
     Stockpile,
+    FontLoader,
+    BuyMeBrick,
   },
   data() { return { $loader: {} }; },
   created() {
@@ -20,7 +24,6 @@ export default {
       this.$loader.hide();
     }
     if (this.storage) {
-      console.log('updated', this.brickStyler);
       document.body.className = '';
       document.body.classList.add(...this.brickStyler);
     }
@@ -108,12 +111,14 @@ export default {
         <option value="LATEST" selected>Latest</option>
         <option v-for="(value,key, hindex) in history" :key="key" :value="value.id">#{{hindex}} {{value.note}}</option>
       </select>
+      <font-loader></font-loader>
       <div>
         <brick name="under-construction-gif">
           <small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small>
         </brick>
       </div>
     </footer>
+    <buy-me-brick></buy-me-brick>
   </main>
 </template>
 
