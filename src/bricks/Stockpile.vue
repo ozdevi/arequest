@@ -72,6 +72,22 @@ export default {
 <style scoped lang="scss">
 .truncate-long-lines {
   .stockpile{
+    li {
+      &.expanded {
+        margin-bottom: .5em;
+      }
+      &.isDone .instruction-label {
+        text-decoration: line-through;
+        &.quote{
+          &:before {
+            content: "“";
+          }
+          &:after {
+            content: "”";
+          }
+        }
+      }
+    }
     li:not(.expanded) {
       display: flex;
       flex-direction: row;
@@ -86,17 +102,6 @@ export default {
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-      }
-      &.isDone .instruction-label {
-        text-decoration: line-through;
-        &.quote{
-          &:before {
-            content: "“";
-          }
-          &:after {
-            content: "”";
-          }
-        }
       }
       .brick-owner {
         flex: 1 0 auto;

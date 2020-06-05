@@ -150,6 +150,7 @@ export default {
 
   li input{
     vertical-align: top;
+    margin-bottom: 0;
   }
 
 }
@@ -160,7 +161,7 @@ export default {
 }
 .wide-enough-paragraphs {
   p, .container {
-    max-width: 38em;
+    max-width: 50em;
   }
 }
 .oxygen-mono-font {
