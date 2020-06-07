@@ -43,12 +43,15 @@ export default {
   <div class="brick-builder-worker-activity">
     <small>Workers: </small>
     <small v-for="worker in workers" :key="worker.id">
-      <a href="#">&nbsp;{{worker.id}}</a> is working on
-      <a href="#"
-         :ref="`worker-ref-${worker.id}`"
-         @mouseenter="visualiseChanges(worker.id,'show')"
-         @mouseleave="visualiseChanges(worker.id,'hide')"
-      >this&nbsp;</a>
+        <a href="#">&nbsp;{{worker.id}}</a> is
+        <span v-if="worker.working">>working on
+          <a href="#"
+             :ref="`worker-ref-${worker.id}`"
+             @mouseenter="visualiseChanges(worker.id,'show')"
+             @mouseleave="visualiseChanges(worker.id,'hide')"
+          >this&nbsp;</a>
+        </span>
+        <span v-else>idle.</span>
     </small>
   </div>
 </template>

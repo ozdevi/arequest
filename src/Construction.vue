@@ -8,6 +8,7 @@ import HistoryTimeLine from './bricks/HistoryTimeLine.vue';
 import AndyMvpCss from './bricks/AndyMvpCss.vue';
 import Orange from './bricks/Orange.vue';
 import WorkersActivity from './bricks/WorkersActivity.vue';
+import BrickBackgroundTile from './bricks/BrickBackgroundTile.vue';
 
 export default {
   name: 'App',
@@ -21,6 +22,7 @@ export default {
     AndyMvpCss,
     Orange,
     WorkersActivity,
+    BrickBackgroundTile,
   },
   data() { return { $loader: {} }; },
   created() {
@@ -137,13 +139,15 @@ export default {
         </brick>
       </div>
     </footer>
-
+    <brick name="brick-background-tile" :is-dev-mode="true">
+      <brick-background-tile/>
+    </brick>
   </main>
 </template>
 
 <style lang="scss">
   body {
-    padding-bottom: 100px!important;
+    padding-bottom: 50px!important;
   }
   .leader-line {
     z-index: 999;
