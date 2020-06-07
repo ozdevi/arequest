@@ -64,7 +64,7 @@ export default {
             <strong>Save my brick</strong>
           </a>
         </template>
-        <div class="brick-form under-construction-band">
+        <div class="brick-form under-construction-band brick-builder-jerry-built-stockpile">
           <div class="form-inputs">
             <p v-if="notification">
               <mark>
@@ -81,7 +81,7 @@ export default {
               <strong>Save my brick</strong>
             </a>
           </div>
-          <div class="squirrel"></div>
+          <div class="squirrel brick-builder-squirrel"></div>
         </div>
       </brick>
     </brick>

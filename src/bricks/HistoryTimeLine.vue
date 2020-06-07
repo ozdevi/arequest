@@ -62,7 +62,7 @@ export default {
   <brick name="history-timeline" tag="div" :is-dev-mode="true">
     <div :class="{'history-timeline': true, 'on': timeTravelMode, 'dragging': dragging}">
       <div class="timeline-switcher">
-        <label for="timetravel-switcher">
+        <label for="timetravel-switcher" class="brick-builder-history-timeline brick-builder-history-horizontal">
           <input type="checkbox" id="timetravel-switcher" v-model="timeTravelMode" @change="switchTimeTravelMode">
           <span>Time travel: {{timeTravelMode ? 'ON' : 'OFF'}}</span>
         </label>

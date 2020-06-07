@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="brick-builder-font-loader">
     Change font:
     <select @change="changeFont($event)" v-model="selectedFont">
       <option value="" selected>Choose a font</option>

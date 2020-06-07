@@ -48,18 +48,6 @@ export default {
       return this.$operatorMachine.context.builders;
     },
     brickStyler() {
-      // if (this.builders['andy-mvp-css']) {
-      //   const file = document.createElement('link');
-      //   file.rel = 'stylesheet';
-      //   file.href = 'mvp.css';
-      //   file.id = 'mvp';
-      //   document.head.appendChild(file);
-      // } else {
-      //   const file = document.querySelector('link[id="mvp"]');
-      //   if (file) {
-      //     file.disabled = true;
-      //   }
-      // }
       return Object.keys(this.builders);
     },
   },
@@ -86,20 +74,20 @@ export default {
 </script>
 
 <template>
-  <main id="app">
+  <main id="app" class="brick-builder-oxygen-mono-font brick-builder-wide-enough-paragraphs brick-builder-andy-mvp-css brick-builder-yellow-bg">
     <h1>
       <brick name="user-bricks-logo">
-        <img src="./assets/user-bricks-logo.png" alt="" width="100" style="vertical-align: middle;"/>
+        <img src="./assets/user-bricks-logo.png" alt="" width="100" style="vertical-align: middle;" class="brick-builder-user-bricks-logo"/>
       </brick>
       Hello, user!
     </h1>
-    <p>
-      <brick name="introductory-text">
+    <p class="brick-builder-paragraph-length">
+      <brick name="introductory-text" class="brick-builder-introductory-text">
         <template v-slot:old>
-          This website will be built on top of your requests.
+          <span class="brick-builder-base">This website</span> will be built on top of your requests.
           Each request is a brick and we can start a construction with them. So this is really under construction. Go bring a brick!
         </template>
-        This website will be entirely built on top of your requests.
+        <span class="brick-builder-base">This website</span> will be entirely built on top of your requests.
         Each request is a brick and construction is on going, forever. So this is really, always, under construction.  Go add a brick!
       </brick>
     </p>
@@ -128,7 +116,11 @@ export default {
       <history-time-line/>
       <div>
         <brick name="under-construction-gif">
-          <img src="./assets/under-construction.gif" alt="A pictogram worker is digging the ground." title="Brick #1 by @ozdevi on 2020-05-14" />
+          <img src="./assets/under-construction.gif"
+               alt="A pictogram worker is digging the ground."
+               title="Brick #1 by @ozdevi on 2020-05-14"
+               class="brick-builder-under-construction-gif"
+          />
           <div><small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small></div>
         </brick>
         <brick name="squirrel">
@@ -143,6 +135,9 @@ export default {
 <style lang="scss">
   body {
     padding-bottom: 100px!important;
+  }
+  .leader-line {
+    z-index: 888;
   }
 .yellow-bg{
     background: #F9D206;

@@ -9,6 +9,26 @@ export default {
     stockpile() {
       return this.$operatorMachine.context.stockpile;
     },
+    leaderLines() {
+      return this.stockpile.filter((b) => b.isDone)
+        .reduce((acc, brick) => {
+          const brickRef = this.$refs[`brick-ref-${brick.id}`];
+          const brickBuilders = document.querySelectorAll(`.brick-builder-${brick.name}`);
+          if (brickRef && brickRef.length > 0 && brickBuilders && brickBuilders.length > 0) {
+            const leaderLine = new window.LeaderLine(
+              brickRef[0],
+              brickBuilders[0], {
+                size: 2,
+                endPlug: 'hand',
+                hide: true,
+              },
+            );
+            // leaderLine.setOptions({ startSocket: 'left', endSocket: 'left' });
+            acc[brick.id] = leaderLine;
+          }
+          return acc;
+        }, {});
+    },
   },
   props: {
     msg: String,
@@ -16,6 +36,7 @@ export default {
   data() {
     return {
       expanded: [],
+      toggleLeaderLine: false,
     };
   },
   methods: {
@@ -30,6 +51,13 @@ export default {
         expanded.splice(eindex, 1);
       }
     },
+    visualiseChanges(brick, action) {
+      const leaderLine = this.leaderLines[brick.id];
+      if (leaderLine && this.toggleLeaderLine) {
+        leaderLine.position();
+        leaderLine[action]('draw');
+      }
+    },
   },
 };
 </script>
@@ -37,7 +65,7 @@ export default {
 <template>
   <div class="container">
     <h3>Todo (stockpile):</h3>
-    <ul class="stockpile">
+    <ul class="stockpile brick-builder-truncate-long-lines">
       <li
         :title="`Brick #${brick.order} by @${brick.owner.name} on ${brick.ctime.toDate()}`"
         v-for="brick in stockpile"
@@ -50,12 +78,34 @@ export default {
               <template v-slot:old>
                 <input type="checkbox" :checked="brick.isDone" :aria-checked="brick.isDone">
               </template>
-              <input type="checkbox" disabled :checked="brick.isDone" :aria-checked="brick.isDone">
+              <input
+                v-model="toggleLeaderLine"
+                v-if="brick.name === 'visualise-changes'"
+                type="checkbox"
+                :checked="brick.isDone"
+                :aria-checked="brick.isDone"
+                :ref="`brick-ref-${brick.id}`"
+                class="brick-builder-visualise-changes"
+              />
+              <input
+                v-else
+                disabled
+                type="checkbox"
+                :checked="brick.isDone"
+                :aria-checked="brick.isDone"
+                class="brick-builder-sweet-checkboxes brick-builder-readonly-checkboxes"
+                :class="{'brick-builder-show-more-info-tooltip': brick.name === 'show-more-info-tooltip'}"
+              />
             </brick>
           </brick>
         </span>
         <span :class="{instruction: true}" :id="`brick-${brick.order}`" @mouseup="expand(brick.id)">
-          <span :class="{'instruction-label':true, quote: brick.owner!=='me'}">{{brick.instruction}}</span>
+          <span
+            :class="{'instruction-label':true, quote: brick.owner!=='me'}"
+            @mouseenter="visualiseChanges(brick,'show')"
+            @mouseleave="visualiseChanges(brick,'hide')"
+            :ref="`brick-ref-${brick.id}`"
+          >{{brick.instruction}}</span>
           <div v-if="brick.order && brick.order === 8"><today-lucy-number/></div>
         </span>
         <span class="brick-owner">&mdash;

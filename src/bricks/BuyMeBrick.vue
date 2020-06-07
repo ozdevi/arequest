@@ -11,7 +11,7 @@ export default {
 
 <template>
   <brick name="buy-me-a-brick" :tag="`div`">
-    <div class="buy-me-brick-badge">
+    <div class="buy-me-brick-badge brick-builder-buy-me-a-brick">
       <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
       <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/WzpN107">
         <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a brick">
@@ -26,6 +26,7 @@ export default {
     position: fixed;
     top: 16px;
     right: 16px;
+    z-index: 777;
   }
   .bmc-button img {
     height: 34px !important;

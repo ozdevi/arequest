@@ -18,7 +18,7 @@ export default {
 
 <template>
   <brick name="todays-lucky-number">
-    <mark class="today-lucky-number">
+    <mark class="today-lucky-number brick-builder-todays-lucky-number">
       <strong>
         <em>Today's random number is {{randomNumber}}</em>
       </strong>

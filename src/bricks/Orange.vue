@@ -11,7 +11,7 @@ export default {
 
 <template>
   <brick name="orange" tag="div">
-    <div class="orange">
+    <div class="orange brick-builder-orange">
       <div>23 oranges for 23rd brick!</div>
       <span>{{'🍊'.repeat(23)}}</span>
     </div>
