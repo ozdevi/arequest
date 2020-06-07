@@ -1,6 +1,5 @@
 <script>
 import WebFontLoader from 'webfontloader';
-import Brick from '@/Brick.vue';
 import fonts from '@/store/fonts.json';
 
 export default {
@@ -8,11 +7,16 @@ export default {
   data() {
     return {
       fonts,
-      selectedFont: undefined,
+      selectedFont: 'Oxygen Mono',
     };
   },
-  components: {
-    Brick,
+  created() {
+    WebFontLoader.load({
+      google: {
+        families: [this.selectedFont],
+      },
+      active: this.fontLoaded,
+    });
   },
   methods: {
     changeFont($event) {
@@ -30,24 +34,30 @@ export default {
       document.body.style = `font-family: ${this.selectedFont}`;
     },
   },
+  destroyed() {
+    document.body.style = '';
+  },
 };
 </script>
 
 <template>
-  <brick name="font-loader" tag="div">
-    Font chooser:
-    <select @change="changeFont($event)">
-      <option value="" selected>Choose a font.</option>
+  <div>
+    Change font:
+    <select @change="changeFont($event)" v-model="selectedFont">
+      <option value="" selected>Choose a font</option>
       <optgroup  v-for="(families, key) of fonts" :label="key.toUpperCase()" v-bind:key="key">
         <option v-for="font in families" v-bind:key="font">{{font}}</option>
       </optgroup>
     </select>
-  </brick>
+  </div>
 </template>
 
 <style scoped lang="scss">
 .today-lucky-number em{
   text-decoration: none!important;
   white-space: normal;
+}
+select {
+  display: inline-block;
 }
 </style>

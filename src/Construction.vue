@@ -4,6 +4,9 @@ import BrickForm from './bricks/BrickForm.vue';
 import Stockpile from './bricks/Stockpile.vue';
 import FontLoader from './bricks/FontLoader.vue';
 import BuyMeBrick from './bricks/BuyMeBrick.vue';
+import HistoryTimeLine from './bricks/HistoryTimeLine.vue';
+import AndyMvpCss from './bricks/AndyMvpCss.vue';
+import Orange from './bricks/Orange.vue';
 
 export default {
   name: 'App',
@@ -13,6 +16,9 @@ export default {
     Stockpile,
     FontLoader,
     BuyMeBrick,
+    HistoryTimeLine,
+    AndyMvpCss,
+    Orange,
   },
   data() { return { $loader: {} }; },
   created() {
@@ -42,18 +48,18 @@ export default {
       return this.$operatorMachine.context.builders;
     },
     brickStyler() {
-      if (this.builders['andy-mvp-css']) {
-        const file = document.createElement('link');
-        file.rel = 'stylesheet';
-        file.href = 'mvp.css';
-        file.id = 'mvp';
-        document.head.appendChild(file);
-      } else {
-        const file = document.querySelector('link[id="mvp"]');
-        if (file) {
-          file.disabled = true;
-        }
-      }
+      // if (this.builders['andy-mvp-css']) {
+      //   const file = document.createElement('link');
+      //   file.rel = 'stylesheet';
+      //   file.href = 'mvp.css';
+      //   file.id = 'mvp';
+      //   document.head.appendChild(file);
+      // } else {
+      //   const file = document.querySelector('link[id="mvp"]');
+      //   if (file) {
+      //     file.disabled = true;
+      //   }
+      // }
       return Object.keys(this.builders);
     },
   },
@@ -100,29 +106,44 @@ export default {
     <h2>Where can I put my bricks?</h2>
     <brick-form/>
     <stockpile />
+    <buy-me-brick></buy-me-brick>
+    <brick name="andy-mvp-css">
+      <andy-mvp-css/>
+    </brick>
+
     <footer>
+      <brick name="orange" tag="div">
+        <orange/>
+      </brick>
+      <brick name="font-loader" tag="div">
+        <font-loader/>
+      </brick>
+      <div :style="{display:'none'}">
+        History:
+        <select name="history" @change="showHistory($event)">
+          <option value="LATEST" selected>Latest</option>
+          <option v-for="(value,key, hindex) in history" :key="key" :value="value.id">#{{hindex}} {{value.note}}</option>
+        </select>
+      </div>
+      <history-time-line/>
       <div>
         <brick name="under-construction-gif">
           <img src="./assets/under-construction.gif" alt="A pictogram worker is digging the ground." title="Brick #1 by @ozdevi on 2020-05-14" />
+          <div><small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small></div>
         </brick>
-      </div>
-      History:
-      <select name="history" @change="showHistory($event)">
-        <option value="LATEST" selected>Latest</option>
-        <option v-for="(value,key, hindex) in history" :key="key" :value="value.id">#{{hindex}} {{value.note}}</option>
-      </select>
-      <font-loader></font-loader>
-      <div>
-        <brick name="under-construction-gif">
-          <small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small>
+        <brick name="squirrel">
+          <small>Photo by <a href="https://unsplash.com/photos/lhD1xpVFxDE">Ritam Ghosh</a> on <a href="https://unsplash.com">Unsplash</a></small>
         </brick>
       </div>
     </footer>
-    <buy-me-brick></buy-me-brick>
+
   </main>
 </template>
 
 <style lang="scss">
+  body {
+    padding-bottom: 100px!important;
+  }
 .yellow-bg{
     background: #F9D206;
 }
@@ -140,6 +161,13 @@ export default {
       color: inherit;
       opacity: .3;
     }
+  }
+  .history-timeline.on {
+    background-color: #F9D206;
+  }
+
+  small {
+    color: rgba(0,0,0,.3);
   }
 }
 
