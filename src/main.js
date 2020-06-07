@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import { VueStateMachine } from 'vue-xstate-plugin';
 import Loading from 'vue-loading-overlay';
-import operatorMachine from '@/fsm/operatorMachine';
+import operatorMachine from './fsm/operatorMachine';
+import workerMachine from './fsm/workerMachine';
 import Construction from './Construction.vue';
 import store from './store';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -18,6 +19,11 @@ Vue.use(Loading, {
 Vue.use(VueStateMachine, [
   {
     config: operatorMachine,
+    logState: true,
+    logContext: true,
+  },
+  {
+    config: workerMachine,
     logState: true,
     logContext: true,
   },

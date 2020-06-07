@@ -7,6 +7,7 @@ import BuyMeBrick from './bricks/BuyMeBrick.vue';
 import HistoryTimeLine from './bricks/HistoryTimeLine.vue';
 import AndyMvpCss from './bricks/AndyMvpCss.vue';
 import Orange from './bricks/Orange.vue';
+import WorkersActivity from './bricks/WorkersActivity.vue';
 
 export default {
   name: 'App',
@@ -19,10 +20,12 @@ export default {
     HistoryTimeLine,
     AndyMvpCss,
     Orange,
+    WorkersActivity,
   },
   data() { return { $loader: {} }; },
   created() {
     this.$operatorMachine.send({ type: 'START' });
+    this.$workerMachine.send({ type: 'CALL_WORKERS' });
     this.$loader = this.$loading.show();
   },
   updated() {
@@ -49,6 +52,9 @@ export default {
     },
     brickStyler() {
       return Object.keys(this.builders);
+    },
+    workers() {
+      return this.$workerMachine.context.workers;
     },
   },
   methods: {
@@ -124,7 +130,10 @@ export default {
           <div><small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small></div>
         </brick>
         <brick name="squirrel">
-          <small>Photo by <a href="https://unsplash.com/photos/lhD1xpVFxDE">Ritam Ghosh</a> on <a href="https://unsplash.com">Unsplash</a></small>
+          <small>Squirrel photo by <a href="https://unsplash.com/photos/lhD1xpVFxDE">Ritam Ghosh</a> on <a href="https://unsplash.com">Unsplash</a></small>
+        </brick>
+        <brick name="worker-activity">
+          <workers-activity/>
         </brick>
       </div>
     </footer>
@@ -137,7 +146,7 @@ export default {
     padding-bottom: 100px!important;
   }
   .leader-line {
-    z-index: 888;
+    z-index: 999;
   }
 .yellow-bg{
     background: #F9D206;

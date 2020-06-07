@@ -23,7 +23,6 @@ export default {
                 hide: true,
               },
             );
-            // leaderLine.setOptions({ startSocket: 'left', endSocket: 'left' });
             acc[brick.id] = leaderLine;
           }
           return acc;
@@ -101,7 +100,10 @@ export default {
         </span>
         <span :class="{instruction: true}" :id="`brick-${brick.order}`" @mouseup="expand(brick.id)">
           <span
-            :class="{'instruction-label':true, quote: brick.owner!=='me'}"
+            :class="{
+              'instruction-label':true, quote: brick.owner.name !== 'me',
+              [`brick-builder-${brick.name}`]: !brick.isDone
+            }"
             @mouseenter="visualiseChanges(brick,'show')"
             @mouseleave="visualiseChanges(brick,'hide')"
             :ref="`brick-ref-${brick.id}`"

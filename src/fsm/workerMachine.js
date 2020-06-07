@@ -2,10 +2,9 @@ import { Machine, assign } from 'xstate';
 import { db } from '@/store/database';
 
 const services = {
-  getBricks: () => db.collection('bricks')
-    .where('approved', '==', true)
-    .get().then(({ docs }) => docs
-      .sort((b1, b2) => b1.data().ctime.toDate() - b2.data().ctime.toDate())
+  getWorkers: () => db.collection('workers')
+    .get()
+    .then(({ docs }) => docs
       .map((s) => ({
         id: s.id,
         ...s.data(),
@@ -13,8 +12,8 @@ const services = {
 };
 
 const actions = {
-  loadBricks: assign({
-    bricks: (_, event) => event.data,
+  loadWorkers: assign({
+    workers: (_, event) => event.data,
   }),
   reportAccident: assign({
     error: (_, event) => event.data.errorMsg || event.data.message,
@@ -22,36 +21,31 @@ const actions = {
 };
 
 export default Machine({
-  id: 'truck',
+  id: 'worker',
   context: {
-    truck: 'truck',
-    bricks: [],
+    truck: 'worker',
+    workers: [],
   },
   initial: 'idle',
   states: {
     idle: {
       on: {
-        CARRY_BRICKS: 'carrying',
+        CALL_WORKERS: 'calling',
       },
     },
-    carrying: {
+    calling: {
       invoke: {
-        src: 'getBricks',
+        src: 'getWorkers',
         onDone: {
-          target: 'loaded',
-          actions: ['loadBricks'],
+          target: 'idle',
+          actions: ['loadWorkers'],
         },
         onError: {
-          target: 'accident',
+          target: 'idle',
           actions: ['reportAccident'],
         },
       },
     },
-    loaded: {
-      type: 'final',
-      data: (context) => context.bricks,
-    },
-    accident: { type: 'final' },
   },
 }, {
   services,

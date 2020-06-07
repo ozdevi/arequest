@@ -88,7 +88,6 @@ export default {
           :silent="true"
           :include="true"
           @change="timeTravel"
-          @error="errorSlider"
           @drag-start="dragstart"
           @drag-end="dragend"
         ></vue-slider>
@@ -103,7 +102,7 @@ export default {
   padding: 16px;
   margin-top: 32px;
   position: fixed;
-  z-index: 999;
+  z-index: 888;
 
   left: 0;
   bottom: 0;
