@@ -44,7 +44,7 @@ export default {
     <small>Workers: </small>
     <small v-for="worker in workers" :key="worker.id">
         <a href="#">&nbsp;{{worker.id}}</a> is
-        <span v-if="worker.working">>working on
+        <span v-if="worker.working">working on
           <a href="#"
              :ref="`worker-ref-${worker.id}`"
              @mouseenter="visualiseChanges(worker.id,'show')"
