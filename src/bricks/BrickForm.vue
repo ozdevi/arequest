@@ -41,7 +41,7 @@ export default {
     <brick name="andy-mvp-css">
       <template v-slot:old>
         <label for="instruction-old">Instruction: </label>
-        <input type="text" id="instruction-old" placeholder="eg. Change backgroud color." v-model="instruction" style="width:256px;">
+        <input type="text" id="instruction-old" placeholder="eg. Change background color." v-model="instruction" style="width:256px;">
         <br>
         <label for="owner-old">Owner: </label>
         <input type="text" id="owner-old" v-model="owner.name">
@@ -49,18 +49,18 @@ export default {
         <label for="profile-old">Profile: </label>
         <input type="text" id="profile-old" placeholder="eg. http://twitter.com/ozdevi" v-model="owner.profile" style="width:256px;">
         <br>
-        <input type="button" value="Save my brick" @click="handleSaveBrick"> {{notification}}
+        <input type="button" value="Save my brick" @click="handleSaveBrick" class="brick-builder-jerry-built-stockpile"> {{notification}}
       </template>
 
       <brick name="squirrel">
         <template v-slot:old>
           <label for="instruction-old-2">Instruction: </label>
-          <input type="text" id="instruction-old-2" placeholder="eg. Change backgroud color." v-model="instruction" style="width:256px;">
+          <input type="text" id="instruction-old-2" placeholder="eg. Change background color." v-model="instruction" style="width:256px;">
           <label for="owner-old-2">Owner: </label>
           <input type="text" id="owner-old-2" v-model="owner.name">
           <label for="profile-old-2">Profile: </label>
           <input type="text" id="profile-old-2" placeholder="eg. http://twitter.com/ozdevi" v-model="owner.profile" style="width:256px;">
-          <a @click="handleSaveBrick">
+          <a @click="handleSaveBrick" class="brick-builder-jerry-built-stockpile">
             <strong>Save my brick</strong>
           </a>
         </template>
@@ -72,7 +72,7 @@ export default {
               </mark>
             </p>
             <label for="instruction">Instruction: </label>
-            <input type="text" id="instruction" placeholder="eg. Change backgroud color." v-model="instruction">
+            <input type="text" id="instruction" placeholder="eg. Change background color." v-model="instruction">
             <label for="owner">Owner: </label>
             <input type="text" id="owner" v-model="owner.name">
             <label for="profile">Profile: </label>
