@@ -1,16 +1,15 @@
 <script>
-// import '@/assets/mvp.css';
 
 export default {
   name: 'andy-mvp-css',
   created() {
     const mvpStyleSheet = document.getElementById('mvp');
     if (!mvpStyleSheet) {
-      const file = document.createElement('link');
-      file.rel = 'stylesheet';
-      file.href = 'mvp.css';
-      file.id = 'mvp';
-      document.head.appendChild(file);
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'mvp.css';
+      link.id = 'mvp';
+      document.head.appendChild(link);
     }
   },
   destroyed() {
