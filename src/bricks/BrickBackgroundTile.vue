@@ -39,7 +39,7 @@ export default {
   .brick-item{
     height: 96px;
     border-radius: 3px;
-    background-color: rgba(0,0,0,.05);
+    background-color: rgba(207, 119, 67, 0.35);
     margin: 3px;
     flex: 1 0 auto;
   }
