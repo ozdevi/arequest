@@ -9,6 +9,7 @@ import AndyMvpCss from './bricks/AndyMvpCss.vue';
 import Orange from './bricks/Orange.vue';
 import WorkersActivity from './bricks/WorkersActivity.vue';
 import BrickBackgroundTile from './bricks/BrickBackgroundTile.vue';
+import FavIcon from './bricks/FavIcon.vue';
 
 export default {
   name: 'App',
@@ -23,6 +24,7 @@ export default {
     Orange,
     WorkersActivity,
     BrickBackgroundTile,
+    FavIcon,
   },
   data() { return { $loader: {} }; },
   created() {
@@ -103,10 +105,6 @@ export default {
     <brick-form/>
     <stockpile />
     <buy-me-brick></buy-me-brick>
-    <brick name="andy-mvp-css">
-      <andy-mvp-css/>
-    </brick>
-
     <footer>
       <brick name="orange" tag="div">
         <orange/>
@@ -139,7 +137,13 @@ export default {
         </brick>
       </div>
     </footer>
-    <brick name="brick-background-tile" :is-dev-mode="true">
+    <brick name="andy-mvp-css">
+      <andy-mvp-css/>
+    </brick>
+    <brick name="favicon">
+      <fav-icon/>
+    </brick>
+    <brick name="brick-background-tile">
       <brick-background-tile/>
     </brick>
   </main>
