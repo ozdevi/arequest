@@ -10,6 +10,7 @@ import Orange from './bricks/Orange.vue';
 import WorkersActivity from './bricks/WorkersActivity.vue';
 import BrickBackgroundTile from './bricks/BrickBackgroundTile.vue';
 import FavIcon from './bricks/FavIcon.vue';
+import DefineForever from './bricks/DefineForever.vue';
 
 export default {
   name: 'App',
@@ -25,6 +26,7 @@ export default {
     WorkersActivity,
     BrickBackgroundTile,
     FavIcon,
+    DefineForever,
   },
   data() { return { $loader: {} }; },
   created() {
@@ -98,7 +100,12 @@ export default {
           Each request is a brick and we can start a construction with them. So this is really under construction. Go bring a brick!
         </template>
         <span class="brick-builder-base">This website</span> will be entirely built on top of your requests.
-        Each request is a brick and construction is on going, forever. So this is really, always, under construction.  Go add a brick!
+        <span>Each request is a brick and construction is on going,</span>
+        <brick name="define-forever">
+          <template v-slot:old> forever </template>
+          <define-forever/>
+        </brick>
+        <span>So this is really, always, under construction.  Go add a brick!</span>
       </brick>
     </p>
     <h2>Where can I put my bricks?</h2>
