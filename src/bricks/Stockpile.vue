@@ -1,5 +1,6 @@
 <script>
 import Brick from '@/Brick.vue';
+import { isElementInViewport } from '../utils/dom';
 import TodayLucyNumber from './TodayLucyNumber.vue';
 
 export default {
@@ -36,6 +37,7 @@ export default {
     return {
       expanded: [],
       toggleLeaderLine: false,
+      expanderLength: 120,
     };
   },
   methods: {
@@ -50,12 +52,24 @@ export default {
         expanded.splice(eindex, 1);
       }
     },
-    visualiseChanges(brick, action) {
+    visualiseChanges(brick) {
       const leaderLine = this.leaderLines[brick.id];
       if (leaderLine && this.toggleLeaderLine) {
+        console.log('leader link', leaderLine);
+        const { end: brickBuilder } = leaderLine;
+        if (!isElementInViewport(brickBuilder)) {
+          brickBuilder.scrollIntoView({ behavior: 'smooth' });
+        }
         leaderLine.position();
-        leaderLine[action]('draw');
+        leaderLine.show('draw');
+        window.setTimeout(() => {
+          leaderLine.hide('draw');
+        }, 2000);
       }
+    },
+    getInstruction({ instruction, id }) {
+      const { expanded, expanderLength } = this;
+      return expanded.includes(id) ? instruction : instruction.substr(0, expanderLength);
     },
   },
 };
@@ -69,7 +83,7 @@ export default {
         :title="`Brick #${brick.order} by @${brick.owner.name} on ${brick.ctime.toDate()}`"
         v-for="brick in stockpile"
         :key="brick.id"
-        :class="{expanded: expanded.includes(brick.id), isDone: brick.isDone}"
+        :class="{isDone: brick.isDone}"
       >
         <span>
           <brick name="sweet-checkboxes">
@@ -98,23 +112,22 @@ export default {
             </brick>
           </brick>
         </span>
-        <span :class="{instruction: true}" :id="`brick-${brick.order}`" @mouseup="expand(brick.id)">
+        <span :class="{instruction: true}" :id="`brick-${brick.order}`">
           <span
+            :ref="`brick-ref-${brick.id}`"
+            @click="visualiseChanges(brick,'show')"
+            class="instruction-label"
             :class="{
-              'instruction-label':true, quote: brick.owner.name !== 'me',
+              quote: brick.owner.name !== 'me',
               [`brick-builder-${brick.name}`]: !brick.isDone
             }"
-            @mouseenter="visualiseChanges(brick,'show')"
-            @mouseleave="visualiseChanges(brick,'hide')"
-            :ref="`brick-ref-${brick.id}`"
-          >{{brick.instruction}}</span>
-          <div v-if="brick.order && brick.order === 8"><today-lucy-number/></div>
+          >{{getInstruction(brick)}}</span>&nbsp;
+          <a @mouseup="expand(brick.id)" v-if="brick.instruction.length > expanderLength" class="instruction-label-expander">...</a>
         </span>
-        <span class="brick-owner">&mdash;
-          <component :is="brick.owner.profile ? 'a' : 'span'" :href="brick.owner.profile ? brick.owner.profile : null">
-            {{brick.owner.name}}
-          </component>
-        </span>
+        <component :is="brick.owner.profile ? 'a' : 'span'" :href="brick.owner.profile ? brick.owner.profile : null" class="brick-owner">
+          {{brick.owner.name}}
+        </component>
+        <div v-if="brick.order && brick.order === 8"><today-lucy-number/></div>
       </li>
     </ul>
   </div>
@@ -125,42 +138,18 @@ export default {
 .truncate-long-lines {
   .stockpile{
     li {
-      &.expanded {
-        margin-bottom: .5em;
-      }
+      margin: 4px 0;
       &.isDone .instruction-label {
-        text-decoration: line-through;
-        &.quote{
-          &:before {
-            content: "“";
-          }
-          &:after {
-            content: "”";
-          }
-        }
-      }
-    }
-    li:not(.expanded) {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      align-items: stretch;
-      align-content: stretch;
-
-      .instruction {
         cursor: pointer;
-        flex: 0 1 auto;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-      .brick-owner {
-        flex: 1 0 auto;
+        text-decoration: line-through;
       }
     }
+
     li {
       .brick-owner {
+        &:before {
+          content: " – ";
+        }
         margin-left: 8px;
         span {
           padding: 0 8px;
@@ -175,6 +164,12 @@ export default {
           &:after {
             content: "”";
           }
+        }
+      }
+      .instruction-label-expander {
+        cursor: pointer;
+        &:before{
+          content: " ";
         }
       }
     }

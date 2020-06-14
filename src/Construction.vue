@@ -157,6 +157,9 @@ export default {
 </template>
 
 <style lang="scss">
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     padding-bottom: 50px!important;
   }
@@ -176,8 +179,8 @@ export default {
 
 .yellow-bg {
   .isDone {
-    .instruction{
-      color: inherit;
+    .instruction-label{
+      color: #000;
       opacity: .3;
     }
   }
