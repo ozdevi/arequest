@@ -81,7 +81,7 @@ export default {
               <strong>Save my brick</strong>
             </a>
           </div>
-          <div class="squirrel brick-builder-squirrel"></div>
+          <div class="squirrel brick-builder-squirrel brick-builder-super-squirrel"></div>
         </div>
       </brick>
     </brick>
@@ -108,46 +108,72 @@ export default {
       background-size: cover;
     }
   }
+.super-squirrel {
+  .brick-form {
+    .squirrel {
+      position: relative;
+    }
+    .squirrel:hover {
+      &:after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right : 0;
+        background: linear-gradient(90deg, transparent 50%, #000 0);
+        background-size: 30px 100%;
+        animation: break-trap 3s 3s forwards;
+      }
+      animation:
+        trapped-squirrel 3s forwards,
+        super-squirrel 3s 3s infinite;
+    }
+  }
+
+  @keyframes trapped-squirrel {
+    0% {
+      -webkit-filter: hue-rotate(0deg) saturate(2) invert(0);
+    }
+
+    50% {
+      -webkit-filter: hue-rotate(360deg) saturate(8) invert(.25);
+    }
+
+    100% {
+      -webkit-filter: hue-rotate(0deg) saturate(2) invert(0);
+    }
+  }
+  @keyframes super-squirrel {
+    0% {
+      background-image: url('~@/assets/super-squirrel.jpg');
+    }
+
+    100% {
+      background-image: url('~@/assets/super-squirrel.jpg');
+    }
+  }
+  @keyframes break-trap {
+    0% {
+      background: #000;
+    }
+
+    100% {
+      background: transparent;
+    }
+  }
+}
+
 .yellow-bg {
   .under-construction-band {
     position: relative;
-
-    &:before, &:after {
-      position: absolute;
-      top: -16px;
-      left: -16px;
-      z-index: 1;
-      box-sizing: border-box;
-      display: block;
-      width: calc(100% + 32px);
-      height: calc(100% + 32px);
-      content: "";
-      pointer-events: none;
-    }
-
-    &:before {
-      border-top: 16px solid;
-      border-bottom: 16px solid;
-      border-image: repeating-linear-gradient(
-          10deg,
-          black,
-          black 10px,
-          yellow 10px,
-          yellow 20px
-      ) 1;
-    }
-
-    &:after {
-      border-left: 16px solid;
-      border-right: 16px solid;
-      border-image: repeating-linear-gradient(
-          75deg,
-          black,
-          black 10px,
-          yellow 10px,
-          yellow 20px
-      ) 1;
-    }
+    border: 1em solid transparent;
+    background:
+      linear-gradient(white, white) padding-box,
+      repeating-linear-gradient(-45deg, yellow 0, yellow 12.5%,
+        transparent 0, transparent 25%,
+        black 0, black 37.5%,
+        transparent 0, transparent 50%) 0 / 5em 5em;
   }
 }
 

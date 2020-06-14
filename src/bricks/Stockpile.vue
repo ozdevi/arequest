@@ -72,6 +72,10 @@ export default {
       return expanded.includes(id) ? instruction : instruction.substr(0, expanderLength);
     },
   },
+  destroyed() {
+    const lkeys = Object.keys(this.leaderLines);
+    lkeys.forEach((lk) => this.leaderLines[lk].remove());
+  },
 };
 </script>
 
