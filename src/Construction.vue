@@ -136,8 +136,11 @@ export default {
           />
           <div><small>gif graciously taken from <a href="http://textfiles.com/underconstruction/">textfiles.com</a></small></div>
         </brick>
-        <brick name="squirrel">
+        <brick name="squirrel" tag="div">
           <small>Squirrel photo by <a href="https://unsplash.com/photos/lhD1xpVFxDE">Ritam Ghosh</a> on <a href="https://unsplash.com">Unsplash</a></small>
+        </brick>
+        <brick name="super-squirrel" tag="div">
+          <small>`SuperSquirrel - The Last squirrel of Krypton` photo by <a href="https://www.deviantart.com/shikharsrivastava/art/SuperSquirrel-The-Last-squirrel-of-Krypton-322938479">Shikhar Srivastava</a> on <a href="https://www.deviantart.com/">Deviantart</a></small>
         </brick>
         <brick name="worker-activity">
           <workers-activity/>
