@@ -142,6 +142,9 @@ export default {
         <brick name="worker-activity">
           <workers-activity/>
         </brick>
+        <brick name="open-source">
+          <small class="brick-builder-open-source">Made with <span style="color: #e25555;">❤</span> in London. The repository is available on <a href="https://github.com/ozdevi/user-bricks">GitHub</a></small>
+        </brick>
       </div>
     </footer>
     <brick name="andy-mvp-css">
