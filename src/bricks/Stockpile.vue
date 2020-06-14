@@ -1,11 +1,11 @@
 <script>
 import Brick from '@/Brick.vue';
 import { isElementInViewport } from '../utils/dom';
-import TodayLucyNumber from './TodayLucyNumber.vue';
+import TodayLuckyNumber from './TodayLuckyNumber.vue';
 
 export default {
   name: 'Stockpile',
-  components: { Brick, TodayLucyNumber },
+  components: { Brick, TodayLuckyNumber },
   computed: {
     stockpile() {
       return this.$operatorMachine.context.stockpile;
@@ -127,7 +127,7 @@ export default {
         <component :is="brick.owner.profile ? 'a' : 'span'" :href="brick.owner.profile ? brick.owner.profile : null" class="brick-owner">
           {{brick.owner.name}}
         </component>
-        <div v-if="brick.order && brick.order === 8"><today-lucy-number/></div>
+        <div v-if="brick.order && brick.order === 8"><today-lucky-number/></div>
       </li>
     </ul>
   </div>

@@ -6,7 +6,7 @@ import format from 'date-fns/format';
 const rng = new MersenneTwister(format(new Date(), 'dMyyyy'));
 
 export default {
-  name: 'todays-lucy-number',
+  name: 'todays-lucky-number',
   data() {
     return { randomNumber: rng.randomInt() };
   },
