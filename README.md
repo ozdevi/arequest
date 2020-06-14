@@ -1,13 +1,14 @@
 # User Bricks
-### A website built by user requests from scratch.
 
-Hello, user!
-This website will be built on top of your requests. Each request is a brick and we can start a construction with them. So this is really under construction. Go bring a brick!
+This website will be entirely built on top of your requests. Each request is a brick and construction is on going, forever. So this is really, always, under construction. Go add a brick!
 
-### Where can I put my bricks?
-Good question. Maybe we need some sort of stockpile when we have many bricks! Until then, you can send your brick via email: sendmybrick@gmail.com
+## Getting Started
 
-## Project setup
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+
+### Installing
+
 ```
 npm install
 ```
@@ -27,5 +28,17 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Built With
+
+* [VueJS](https://vuejs.org/v2/guide/) - The web framework used
+* [XState](https://xstate.js.org/docs/) - State Management
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://github.com/ozdevi/user-bricks/blob/master/CONTRIBUTING.md) for details on our [code of conduct](https://github.com/ozdevi/user-bricks/blob/master/CODE_OF_CONDUCT.md), and the process for submitting pull requests to us.
+
+See also the list of [contributors](https://github.com/ozdevi/user-bricks/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/ozdevi/user-bricks/blob/master/LICENSE) file for details
