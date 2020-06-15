@@ -2,10 +2,11 @@
 import Brick from '@/Brick.vue';
 import { isElementInViewport } from '../utils/dom';
 import TodayLuckyNumber from './TodayLuckyNumber.vue';
+import DressupWithSquirrel from './DressupWithSquirrel.vue';
 
 export default {
   name: 'Stockpile',
-  components: { Brick, TodayLuckyNumber },
+  components: { Brick, TodayLuckyNumber, DressupWithSquirrel },
   computed: {
     stockpile() {
       return this.$operatorMachine.context.stockpile;
@@ -131,6 +132,7 @@ export default {
           {{brick.owner.name}}
         </component>
         <div v-if="brick.order && brick.order === 8"><today-lucky-number/></div>
+        <span v-if="brick.order && brick.order === 31"><dressup-with-squirrel/></span>
       </li>
     </ul>
   </div>

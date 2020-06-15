@@ -16,6 +16,7 @@
     "mobile-device-detect": "^0.4.3",
     "smoothscroll-polyfill": "^0.4.4",
     "vue": "^2.6.11",
+    "vue-js-modal": "^2.0.0-rc.3",
     "vue-loading-overlay": "^3.3.2",
     "vue-slider-component": "^3.1.5",
     "vue-xstate-plugin": "^1.1.0",

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { VueStateMachine } from 'vue-xstate-plugin';
 import Loading from 'vue-loading-overlay';
+import VModal from 'vue-js-modal';
 import smoothscroll from 'smoothscroll-polyfill';
 import operatorMachine from './fsm/operatorMachine';
 import workerMachine from './fsm/workerMachine';
@@ -10,7 +11,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 
 smoothscroll.polyfill();
 Vue.config.productionTip = false;
-
+Vue.use(VModal);
 Vue.use(Loading, {
   width: 32,
   height: 32,
