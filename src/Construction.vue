@@ -11,6 +11,7 @@ import WorkersActivity from './bricks/WorkersActivity.vue';
 import BrickBackgroundTile from './bricks/BrickBackgroundTile.vue';
 import FavIcon from './bricks/FavIcon.vue';
 import DefineForever from './bricks/DefineForever.vue';
+import MobileUx from './bricks/MobileUx.vue';
 
 export default {
   name: 'App',
@@ -27,6 +28,7 @@ export default {
     BrickBackgroundTile,
     FavIcon,
     DefineForever,
+    MobileUx,
   },
   data() { return { $loader: {} }; },
   created() {
@@ -87,7 +89,7 @@ export default {
 
 <template>
   <main id="app" class="brick-builder-oxygen-mono-font brick-builder-wide-enough-paragraphs brick-builder-andy-mvp-css brick-builder-yellow-bg">
-    <h1>
+    <h1 class="user-brick-title">
       <brick name="user-bricks-logo">
         <img src="./assets/user-bricks-logo.png" alt="" width="100" style="vertical-align: middle;" class="brick-builder-user-bricks-logo"/>
       </brick>
@@ -111,7 +113,6 @@ export default {
     <h2>Where can I put my bricks?</h2>
     <brick-form/>
     <stockpile />
-    <buy-me-brick></buy-me-brick>
     <footer>
       <brick name="orange" tag="div">
         <orange/>
@@ -140,25 +141,25 @@ export default {
           <small>Squirrel photo by <a href="https://unsplash.com/photos/lhD1xpVFxDE">Ritam Ghosh</a> on <a href="https://unsplash.com">Unsplash</a></small>
         </brick>
         <brick name="super-squirrel" tag="div">
-          <small>`SuperSquirrel - The Last squirrel of Krypton` photo by <a href="https://www.deviantart.com/shikharsrivastava/art/SuperSquirrel-The-Last-squirrel-of-Krypton-322938479">Shikhar Srivastava</a> on <a href="https://www.deviantart.com/">Deviantart</a></small>
+          <small>
+            `SuperSquirrel - The Last squirrel of Krypton` photo by
+            <a href="https://www.deviantart.com/shikharsrivastava/art/SuperSquirrel-The-Last-squirrel-of-Krypton-322938479">Shikhar Srivastava</a> on
+            <a href="https://www.deviantart.com/">Deviantart</a>
+          </small>
         </brick>
-        <brick name="worker-activity">
-          <workers-activity/>
-        </brick>
+        <brick name="worker-activity"><workers-activity/></brick>
         <brick name="open-source">
-          <small class="brick-builder-open-source">Made with <span style="color: #e25555;">❤</span> in London. The repository is available on <a href="https://github.com/ozdevi/user-bricks">GitHub</a></small>
+          <small class="brick-builder-open-source">
+            Made with <span style="color: #e25555;">❤</span> in London. The repository is available on
+            <a href="https://github.com/ozdevi/user-bricks">GitHub</a></small>
         </brick>
       </div>
     </footer>
-    <brick name="andy-mvp-css">
-      <andy-mvp-css/>
-    </brick>
-    <brick name="favicon">
-      <fav-icon/>
-    </brick>
-    <brick name="brick-background-tile">
-      <brick-background-tile/>
-    </brick>
+    <brick name="andy-mvp-css"><andy-mvp-css/></brick>
+    <brick name="favicon"><fav-icon/></brick>
+    <brick name="brick-background-tile"><brick-background-tile/></brick>
+    <brick name="mobile-ux"><mobile-ux/></brick>
+    <brick name="brick-background-tile"><buy-me-brick/></brick>
   </main>
 </template>
 

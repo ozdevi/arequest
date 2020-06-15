@@ -1,5 +1,6 @@
 <script>
 import VueSlider from 'vue-slider-component';
+import { isMobileOnly } from 'mobile-device-detect';
 import 'vue-slider-component/theme/default.css';
 import Brick from '@/Brick.vue';
 
@@ -14,6 +15,7 @@ export default {
       dragging: false,
       timeTravelMode: false,
       selectedTime: undefined,
+      isMobile: isMobileOnly,
     };
   },
   computed: {
@@ -31,12 +33,29 @@ export default {
         marks,
       };
     },
+    labelStyle() {
+      if (this.isMobile) {
+        return {
+          cursor: 'pointer',
+          opacity: '.3',
+        };
+      }
+      return {
+        transformOrigin: '0 0',
+        transform: 'rotate(-60deg)',
+        margin: '-24px -8px',
+        cursor: 'pointer',
+        opacity: '.3',
+      };
+    },
   },
   methods: {
     switchTimeTravelMode() {
       const { data } = this.slider;
-      this.selectedTime = data[data.length - 1];
-      if (!this.timeTravelMode) {
+      if (!this.selectedTime) {
+        this.selectedTime = data[data.length - 1];
+      }
+      if (!this.timeTravelMode && !this.isMobile) {
         this.$operatorMachine.send('BACK_TO_NOW');
       }
     },
@@ -53,6 +72,9 @@ export default {
     },
     dragend() {
       this.dragging = false;
+      if (this.isMobile) {
+        this.timeTravelMode = false;
+      }
     },
   },
 };
@@ -61,10 +83,10 @@ export default {
 <template>
   <brick name="history-timeline" tag="div" :is-dev-mode="true">
     <div :class="{'history-timeline': true, 'on': timeTravelMode, 'dragging': dragging}">
-      <div class="timeline-switcher">
+      <div class="timeline-switcher" v-if="isMobile ? !timeTravelMode : true">
         <label for="timetravel-switcher" class="brick-builder-history-timeline brick-builder-history-horizontal">
           <input type="checkbox" id="timetravel-switcher" v-model="timeTravelMode" @change="switchTimeTravelMode">
-          <span>Time travel: {{timeTravelMode ? 'ON' : 'OFF'}}</span>
+          <span>Time travel: {{isMobile ? selectedTime ? 'ON' : 'OFF' : timeTravelMode ? 'ON' : 'OFF'}}</span>
         </label>
       </div>
       <div class="history-timeline-wrapper">
@@ -74,12 +96,12 @@ export default {
           :contained="true"
           :adsorb="true"
           :data="slider.data"
-          :marks="dragging ? slider.marks : false"
+          :marks="dragging || isMobile ? slider.marks : false"
           :lazy="true"
-          :tooltip="dragging ? 'none' : 'always'"
+          :tooltip="dragging || isMobile ? 'none' : 'always'"
           :tooltipFormatter="(t)=>history[t] ? history[t].note : ''"
           :tooltipStyle="{color:'#FFF', backgroundColor:'#000', borderColor: '#000'}"
-          :label-style="{transformOrigin: '0 0', transform: 'rotate(-60deg)', margin: '-24px -8px', cursor: 'pointer', opacity: '.3'}"
+          :label-style="labelStyle"
           :active-style="{backgroundColor:'#000', color: '#FFF', padding: '8px', }"
           :label-active-style="{opacity: '1'}"
           :processStyle="{backgroundColor: '#b75d58'}"
@@ -87,6 +109,8 @@ export default {
           :stepStyle="{backgroundColor: '#8c4641'}"
           :silent="true"
           :include="true"
+          :direction="isMobile ? 'btt' : 'ltr'"
+          :height="isMobile ? '90vh' : ''"
           @change="timeTravel"
           @drag-start="dragstart"
           @drag-end="dragend"
@@ -126,8 +150,8 @@ export default {
 
   .timeline-switcher {
     position: absolute;
-    left: 16px!important;
-    bottom: 4px!important;
+    left: 16px;
+    bottom: 4px;
     label span {
       font-size: 14px;
       margin-left: 4px;
@@ -141,6 +165,43 @@ export default {
     flex: 1 1 auto;
     max-width: 1080px;
     margin: 0 auto;
+  }
+}
+@media (max-width: 480px) {
+  .history-timeline {
+    background-color: #FFF;
+  }
+  .yellow-bg .history-timeline {
+    background-color: #F9D206;
+  }
+
+  .history-timeline.on {
+    top: 0;
+    margin-top: 0;
+  }
+
+  .history-timeline .timeline-switcher {
+    position: static;
+    left: 0;
+    bottom: 0;
+  }
+
+  #timetravel-switcher {
+    margin: 0;
+    vertical-align: -2px;
+  }
+}
+@media (max-width: 768px) {
+  .history-timeline {
+    background-color: #FFF;
+  }
+  .yellow-bg .history-timeline {
+    background-color: #F9D206;
+  }
+  .history-timeline .timeline-switcher {
+    position: static;
+    left: 0;
+    bottom: 0;
   }
 }
 </style>

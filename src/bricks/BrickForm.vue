@@ -4,7 +4,14 @@ import Brick from '@/Brick.vue';
 
 export default {
   name: 'brick-form',
-  computed: mapState(['notification']),
+  computed: {
+    ...mapState(['notification']),
+    instructionPlaceHolder() {
+      const { stockpile } = this.$operatorMachine.context;
+      const randomBrick = stockpile[Math.floor(Math.random() * stockpile.length)];
+      return `eg. ${randomBrick ? randomBrick.instruction : 'Change background colour.'}`;
+    },
+  },
   components: {
     Brick,
   },
@@ -12,7 +19,7 @@ export default {
     return {
       instruction: '',
       owner: {
-        name: 'anonymous',
+        name: 'Anonymous',
       },
     };
   },
@@ -41,13 +48,13 @@ export default {
     <brick name="andy-mvp-css">
       <template v-slot:old>
         <label for="instruction-old">Instruction: </label>
-        <input type="text" id="instruction-old" placeholder="eg. Change background color." v-model="instruction" style="width:256px;">
+        <input type="text" id="instruction-old" :placeholder="instructionPlaceHolder" v-model="instruction" style="width:256px;">
         <br>
         <label for="owner-old">Owner: </label>
         <input type="text" id="owner-old" v-model="owner.name">
         <br>
         <label for="profile-old">Profile: </label>
-        <input type="text" id="profile-old" placeholder="eg. http://twitter.com/ozdevi" v-model="owner.profile" style="width:256px;">
+        <input type="text" id="profile-old" placeholder="eg. http://twitter.com/ozdevisiri" v-model="owner.profile" style="width:256px;">
         <br>
         <input type="button" value="Save my brick" @click="handleSaveBrick" class="brick-builder-jerry-built-stockpile"> {{notification}}
       </template>
@@ -55,11 +62,11 @@ export default {
       <brick name="squirrel">
         <template v-slot:old>
           <label for="instruction-old-2">Instruction: </label>
-          <input type="text" id="instruction-old-2" placeholder="eg. Change background color." v-model="instruction" style="width:256px;">
+          <input type="text" id="instruction-old-2" :placeholder="instructionPlaceHolder" v-model="instruction" style="width:256px;">
           <label for="owner-old-2">Owner: </label>
           <input type="text" id="owner-old-2" v-model="owner.name">
           <label for="profile-old-2">Profile: </label>
-          <input type="text" id="profile-old-2" placeholder="eg. http://twitter.com/ozdevi" v-model="owner.profile" style="width:256px;">
+          <input type="text" id="profile-old-2" placeholder="eg. http://twitter.com/ozdevisiri" v-model="owner.profile" style="width:256px;">
           <a @click="handleSaveBrick" class="brick-builder-jerry-built-stockpile">
             <strong>Save my brick</strong>
           </a>
@@ -72,7 +79,7 @@ export default {
               </mark>
             </p>
             <label for="instruction">Instruction: </label>
-            <input type="text" id="instruction" placeholder="eg. Change background color." v-model="instruction">
+            <input type="text" id="instruction" class="instruction" :placeholder="instructionPlaceHolder" v-model="instruction">
             <label for="owner">Owner: </label>
             <input type="text" id="owner" v-model="owner.name">
             <label for="profile">Profile: </label>
@@ -88,7 +95,7 @@ export default {
   </brick>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
   .brick-form {
     display: flex;
     background-color: #e4d8bf;
@@ -174,6 +181,13 @@ export default {
         transparent 0, transparent 25%,
         black 0, black 37.5%,
         transparent 0, transparent 50%) 0 / 5em 5em;
+  }
+}
+
+.mobile-ux {
+  .brick-form .form-inputs input.instruction{
+    box-sizing: border-box;
+    width: 100%;
   }
 }
 

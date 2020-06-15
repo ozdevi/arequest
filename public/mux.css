@@ -1,0 +1,42 @@
+@media (max-width: 480px) {
+    body {
+        padding-top: 0;
+    }
+
+    .user-brick-title {
+        text-align: center;
+    }
+    .brick-builder-user-bricks-logo {
+        display: block;
+        margin: 0 auto 16px;
+    }
+    .buy-me-brick-badge {
+        position: static;
+    }
+    .brick-form {
+        flex-direction: column;
+    }
+    .brick-form.under-construction-band {
+        border-width: 8px;
+    }
+    .brick-form .squirrel {
+        height: 216px;
+    }
+    .brick-form .form-inputs input[type="text"]{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px 8px;
+    }
+    .brick-form .form-inputs a, .brick-form .form-inputs a strong{
+        display: block;
+        text-align: center;
+    }
+
+    .brick-builder-font-loader select{
+        width: 100%;
+    }
+
+    footer {
+        padding: 0;
+    }
+}

@@ -55,7 +55,6 @@ export default {
     visualiseChanges(brick) {
       const leaderLine = this.leaderLines[brick.id];
       if (leaderLine && this.toggleLeaderLine) {
-        console.log('leader link', leaderLine);
         const { end: brickBuilder } = leaderLine;
         if (!isElementInViewport(brickBuilder)) {
           brickBuilder.scrollIntoView({ behavior: 'smooth' });
@@ -141,6 +140,8 @@ export default {
 <style scoped lang="scss">
 .truncate-long-lines {
   .stockpile{
+    padding: 0;
+    margin-bottom: 32px;
     li {
       margin: 4px 0;
       &.isDone .instruction-label {
