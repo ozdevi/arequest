@@ -9,7 +9,8 @@ export default {
   components: { Brick, TodayLuckyNumber, DressupWithSquirrel },
   computed: {
     stockpile() {
-      return this.$operatorMachine.context.stockpile;
+      const { stockpile } = this.$operatorMachine.context;
+      return stockpile.reverse();
     },
     leaderLines() {
       return this.stockpile.filter((b) => b.isDone)
